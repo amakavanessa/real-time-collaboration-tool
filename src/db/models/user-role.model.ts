@@ -1,4 +1,3 @@
-
 import { BelongsTo, Column, ForeignKey,  Model, PrimaryKey, Table } from "sequelize-typescript";
 import { User } from "./user.model";
 import { Role } from "./role.model";

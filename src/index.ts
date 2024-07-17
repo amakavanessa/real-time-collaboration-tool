@@ -1,16 +1,24 @@
-import express, { Express, Request, Response} from 'express';
+import express, { Express, Request, Response } from "express";
 
-import dotenv from 'dotenv';
+import dotenv from "dotenv";
+import env from "./config/env.config";
+import db from "./db/models";
+import router from "./routes";
 
 dotenv.config();
 
-const app:Express = express();
-const port = 3300;
+const app: Express = express();
+app.use(express.json());
 
-app.get('/',(req:Request,res:Response)=>{
-    res.send("Express + Typescript server")
-})
+app.use(router);
+const port = 8080;
 
-app.listen(port,()=>{
-     console.log(`Server is listening on port:${port}`)
-})
+db.sequelize.sync();
+
+app.get("/", (req: Request, res: Response) => {
+  res.send("Express + Typescript server");
+});
+
+app.listen(port, () => {
+  console.log(`Server is listening on port:${port}`);
+});
