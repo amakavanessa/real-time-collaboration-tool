@@ -9,3 +9,7 @@ class AuthValidator {
     body("password").exists().withMessage("Password is required"),
   ];
 }
+
+const authValidator = new AuthValidator();
+
+export { authValidator };
