@@ -11,6 +11,9 @@ class AuthValidator {
                 .withMessage("Must provide a valid email address"),
             (0, express_validator_1.body)("password").exists().withMessage("Password is required"),
         ];
+        this.refreshToken = [
+            (0, express_validator_1.body)("token").exists().withMessage("Must provide a valid token."),
+        ];
     }
 }
 const authValidator = new AuthValidator();

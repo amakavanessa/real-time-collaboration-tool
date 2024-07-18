@@ -68,6 +68,22 @@ class UserService {
 
     return { accessToken, refreshToken };
   };
+
+  public getIsTokenActive = async (token: string): Promise<Boolean> => {
+    const refreshToken = await RefreshToken.findOne({
+      where: { token },
+    });
+
+    return refreshToken != null;
+  };
+
+  public logoutUser = async (userId: number) => {
+    await RefreshToken.destroy({
+      where: {
+        userId,
+      },
+    });
+  };
 }
 
 const userService = new UserService();

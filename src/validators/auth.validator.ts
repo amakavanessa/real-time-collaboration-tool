@@ -8,6 +8,10 @@ class AuthValidator {
       .withMessage("Must provide a valid email address"),
     body("password").exists().withMessage("Password is required"),
   ];
+
+  public refreshToken = [
+    body("token").exists().withMessage("Must provide a valid token."),
+  ];
 }
 
 const authValidator = new AuthValidator();

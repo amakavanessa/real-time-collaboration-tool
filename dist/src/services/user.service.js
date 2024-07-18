@@ -64,6 +64,19 @@ class UserService {
             yield refresh_token_model_1.RefreshToken.create({ token: refreshToken, userId: requestUser.id });
             return { accessToken, refreshToken };
         });
+        this.getIsTokenActive = (token) => __awaiter(this, void 0, void 0, function* () {
+            const refreshToken = yield refresh_token_model_1.RefreshToken.findOne({
+                where: { token },
+            });
+            return refreshToken != null;
+        });
+        this.logoutUser = (userId) => __awaiter(this, void 0, void 0, function* () {
+            yield refresh_token_model_1.RefreshToken.destroy({
+                where: {
+                    userId,
+                },
+            });
+        });
     }
 }
 const userService = new UserService();
