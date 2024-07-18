@@ -8,4 +8,5 @@ const router = (0, express_1.Router)();
 router.post("/", user_validator_1.userValidator.register, user_controller_1.userController.register);
 router.get("/:id", auth_1.authenticate, user_controller_1.userController.getUser);
 router.post("/reset-password", user_validator_1.userValidator.resetPassword, user_controller_1.userController.resetPassword);
+router.put("/password/:token", user_validator_1.userValidator.confirmResetPassword, user_controller_1.userController.confirmResetPassword);
 exports.default = router;
