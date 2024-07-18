@@ -77,6 +77,20 @@ class UserService {
                 },
             });
         });
+        this.findUserById = (id) => __awaiter(this, void 0, void 0, function* () {
+            const user = yield user_model_1.User.findByPk(id);
+            return user;
+        });
+        this.resetPassword = (user) => __awaiter(this, void 0, void 0, function* () {
+            const passwordResetToken = jsonwebtoken_1.default.sign({
+                id: user.id,
+                email: user.email,
+            }, "password_reset", {
+                expiresIn: "24h",
+            });
+            yield user.update({ passwordResetToken });
+            //send password reset email method should be called
+        });
     }
 }
 const userService = new UserService();

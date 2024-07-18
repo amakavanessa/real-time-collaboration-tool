@@ -84,6 +84,28 @@ class UserService {
       },
     });
   };
+
+  public findUserById = async (id: number): Promise<User | null> => {
+    const user = await User.findByPk(id);
+
+    return user;
+  };
+
+  public resetPassword = async (user: User) => {
+    const passwordResetToken = jwt.sign(
+      {
+        id: user.id,
+        email: user.email,
+      },
+      "password_reset",
+      {
+        expiresIn: "24h",
+      }
+    );
+    await user.update({ passwordResetToken });
+
+    //send password reset email method should be called
+  };
 }
 
 const userService = new UserService();

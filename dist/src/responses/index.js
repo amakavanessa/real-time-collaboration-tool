@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.emailNotVerified = exports.userNotFound = void 0;
+exports.resetPassword = exports.emailNotVerified = exports.userNotFound = void 0;
 const userNotFound = [
     {
         msg: "Your email or password is incorrect",
@@ -13,3 +13,9 @@ const emailNotVerified = [
     },
 ];
 exports.emailNotVerified = emailNotVerified;
+const resetPassword = [
+    {
+        msg: "if a user with that email exists, you will receive email instructions to reset your password",
+    },
+];
+exports.resetPassword = resetPassword;
