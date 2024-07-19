@@ -48,6 +48,35 @@ class UserController {
             yield user_service_1.userService.resetPassword(user);
             return res.status(200).json(responses_1.resetPassword);
         }));
+        this.verifyEmail = (0, catch_async_1.default)((req, res) => __awaiter(this, void 0, void 0, function* () {
+            const verificationToken = req.params.token;
+            jsonwebtoken_1.default.verify(verificationToken, "verify_email", (err, decoded) => __awaiter(this, void 0, void 0, function* () {
+                if (err)
+                    return res.sendStatus(403);
+                try {
+                    const { email } = decoded;
+                    user_service_1.userService
+                        .findUserByVerificationToken(email, verificationToken)
+                        .then((user) => {
+                        if (!user || user.isVerified) {
+                            return res.sendStatus(400);
+                        }
+                        user_service_1.userService
+                            .updateIsVerified(user, true)
+                            .then(() => {
+                            return res.sendStatus(200);
+                        })
+                            .catch(() => {
+                            return res.sendStatus(500);
+                        });
+                    })
+                        .catch(() => {
+                        return res.sendStatus(500);
+                    });
+                }
+                catch (error) { }
+            }));
+        }));
         this.confirmResetPassword = (0, catch_async_1.default)((req, res) => __awaiter(this, void 0, void 0, function* () {
             const err = (0, express_validator_1.validationResult)(req);
             if (!err.isEmpty()) {

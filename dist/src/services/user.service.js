@@ -102,6 +102,18 @@ class UserService {
             const hashedPassword = yield (0, bcrypt_1.hash)(password, salt);
             yield user.update({ password: hashedPassword });
         });
+        this.findUserByVerificationToken = (email, verificationToken) => __awaiter(this, void 0, void 0, function* () {
+            const user = user_model_1.User.findOne({
+                where: {
+                    email,
+                    verificationToken,
+                },
+            });
+            return user;
+        });
+        this.updateIsVerified = (user, isVerified) => __awaiter(this, void 0, void 0, function* () {
+            yield user.update({ isVerified });
+        });
     }
 }
 const userService = new UserService();

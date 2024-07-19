@@ -123,6 +123,24 @@ class UserService {
 
     await user.update({ password: hashedPassword });
   };
+
+  public findUserByVerificationToken = async (
+    email: string,
+    verificationToken: string
+  ): Promise<User | null> => {
+    const user = User.findOne({
+      where: {
+        email,
+        verificationToken,
+      },
+    });
+
+    return user;
+  };
+
+  public updateIsVerified = async (user: User, isVerified: boolean) => {
+    await user.update({ isVerified });
+  };
 }
 
 const userService = new UserService();
