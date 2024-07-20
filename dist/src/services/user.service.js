@@ -17,6 +17,7 @@ const bcrypt_1 = require("bcrypt");
 const user_model_1 = require("../db/models/user.model");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const refresh_token_model_1 = require("../db/models/refresh-token.model");
+const mail_service_1 = require("./mail.service");
 class UserService {
     constructor() {
         this.findUserByEmail = (email) => __awaiter(this, void 0, void 0, function* () {
@@ -33,6 +34,25 @@ class UserService {
                 verificationToken: verificationToken,
             });
             ////call method to send verification email
+            yield this.sendVerificationEmail(user);
+        });
+        this.sendVerificationEmail = (user) => __awaiter(this, void 0, void 0, function* () {
+            const mail = {
+                from: "precious.c.nnam@gmail.com",
+                to: user.email,
+                subject: "Welcome to Collab App",
+                text: `Click the following link to verify your email: http://localhost:3000/user/verify-email/${user.verificationToken}`,
+            };
+            yield mail_service_1.mailService.sendMail(mail);
+        });
+        this.sendPasswordResetEmail = (user) => __awaiter(this, void 0, void 0, function* () {
+            const mail = {
+                from: "precious.c.nnam@gmail.com",
+                to: user.email,
+                subject: "Reset your password",
+                text: `http://localhost:3000/user/reset-email/${user.passwordResetToken}`,
+            };
+            yield mail_service_1.mailService.sendMail(mail);
         });
         this.checkPassword = (user, password) => __awaiter(this, void 0, void 0, function* () {
             return yield (0, bcrypt_1.compare)(password, user.password);
@@ -90,6 +110,7 @@ class UserService {
             });
             yield user.update({ passwordResetToken });
             //send password reset email method should be called
+            yield this.sendPasswordResetEmail(user);
         });
         this.findUserByPasswordResetToken = (email, passwordResetToken) => __awaiter(this, void 0, void 0, function* () {
             const user = yield user_model_1.User.findOne({

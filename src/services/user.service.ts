@@ -2,6 +2,7 @@ import { compare, genSalt, hash } from "bcrypt";
 import { User } from "../db/models/user.model";
 import jwt from "jsonwebtoken";
 import { RefreshToken } from "../db/models/refresh-token.model";
+import { mailService } from "./mail.service";
 
 class UserService {
   public findUserByEmail = async (email: string): Promise<User | null> => {
@@ -21,6 +22,29 @@ class UserService {
     });
 
     ////call method to send verification email
+    await this.sendVerificationEmail(user);
+  };
+
+  private sendVerificationEmail = async (user: User) => {
+    const mail = {
+      from: "precious.c.nnam@gmail.com",
+      to: user.email,
+      subject: "Welcome to Collab App",
+      text: `Click the following link to verify your email: http://localhost:3000/user/verify-email/${user.verificationToken}`,
+    };
+
+    await mailService.sendMail(mail);
+  };
+
+  public sendPasswordResetEmail = async (user: User) => {
+    const mail = {
+      from: "precious.c.nnam@gmail.com",
+      to: user.email,
+      subject: "Reset your password",
+      text: `http://localhost:3000/user/reset-email/${user.passwordResetToken}`,
+    };
+
+    await mailService.sendMail(mail);
   };
 
   public checkPassword = async (
@@ -105,6 +129,7 @@ class UserService {
     await user.update({ passwordResetToken });
 
     //send password reset email method should be called
+    await this.sendPasswordResetEmail(user);
   };
 
   public findUserByPasswordResetToken = async (
