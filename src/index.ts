@@ -5,6 +5,7 @@ import env from "./config/env.config";
 import db from "./db/models";
 import router from "./routes";
 import cors from "cors";
+import errorHandler from "./middlewares/error-handler";
 
 dotenv.config();
 
@@ -18,6 +19,7 @@ app.use(
 );
 
 app.use(router);
+app.use(errorHandler);
 const port = 8080;
 
 db.sequelize.sync();
