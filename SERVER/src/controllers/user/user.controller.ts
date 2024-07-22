@@ -15,6 +15,8 @@ class UserController {
 
     await userService.createUser(email, password1);
 
+    
+
     return res.sendStatus(200);
   });
 
