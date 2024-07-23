@@ -36,5 +36,17 @@ const useWindowSize = () => {
     window.addEventListener("resize", handleResize);
 
     handleResize();
-  });
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  return {
+    height: windowSize.height,
+    width: windowSize.width,
+    widthStr,
+    heightStr,
+    isMobileWidth,
+  };
 };
+
+export default useWindowSize;
