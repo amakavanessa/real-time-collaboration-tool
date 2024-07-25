@@ -1,12 +1,67 @@
+import { useContext, useState } from "react";
 import TextField from "../../components/atoms/text-field";
 import useWindowSize from "../../hooks/use-window-size";
+import validator from "validator";
+import AuthService from "../../services/auth-service";
+import useAuth from "../../hooks/use-auth";
+import { ToastContext } from "../../contexts/toast-context";
 
 const Login = () => {
   const { widthStr, heightStr } = useWindowSize();
+
+  const [email, setEmail] = useState("");
+  const [emailErrors, setEmailErrors] = useState<Array<string>>([]);
+  const [password, setPassword] = useState("");
+  const [passwordErrors, setPasswordErrors] = useState<Array<string>>([]);
+  const [loading, setIsLoading] = useState(false);
+  const { login } = useAuth();
+  const { success, error } = useContext(ToastContext);
+  const validate = () => {
+    setEmailErrors([]);
+    setPasswordErrors([]);
+    let isValid = true;
+
+    if (!validator.isEmail(email)) {
+      setEmailErrors(["Email must be a valid email!"]);
+      isValid = false;
+    }
+
+    if (!password.length) {
+      setPasswordErrors(["Password must not be empty"]);
+      isValid = false;
+    }
+
+    return isValid;
+  };
+
+  const loginUser = async () => {
+    if (!validate()) return;
+    setIsLoading(true);
+    try {
+      const response = await AuthService.login({ email, password });
+      const { accessToken: newAccessToken, refreshToken: newRefreshToken } =
+        response.data;
+
+      login(newAccessToken, newRefreshToken);
+      success("Successfully logged in!");
+    } catch {
+    } finally {
+    }
+  };
+
+  const handleOnInputEmail = (value: string) => {
+    setEmailErrors([]);
+    setEmail(value);
+  };
+
+  const handleOnInputPassword = (value: string) => {
+    setPasswordErrors([]);
+    setPassword(value);
+  };
   return (
     <div
-      className="w-full flex flex-col sm:justify-center items-center p-6 sm:pb-96 bg-gray-100 dark:bg-slate-900 text-primary"
       style={{ width: widthStr, height: heightStr }}
+      className="w-full flex flex-col sm:justify-center items-center p-6 bg-gray-100 dark:bg-slate-900 text-primary"
     >
       <div className="w-full max-w-sm bg-white dark:bg-slate-800 rounded border-primary shadow-md border dark:border-0 dark:shadow-xl p-6">
         <div className="flex flex-col space-y-4">
