@@ -5,6 +5,7 @@ import validator from "validator";
 import AuthService from "../../services/auth-service";
 import useAuth from "../../hooks/use-auth";
 import { ToastContext } from "../../contexts/toast-context";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const { widthStr, heightStr } = useWindowSize();
@@ -16,6 +17,7 @@ const Login = () => {
   const [loading, setIsLoading] = useState(false);
   const { login } = useAuth();
   const { success, error } = useContext(ToastContext);
+  const navigate = useNavigate();
   const validate = () => {
     setEmailErrors([]);
     setPasswordErrors([]);
@@ -44,9 +46,16 @@ const Login = () => {
 
       login(newAccessToken, newRefreshToken);
       success("Successfully logged in!");
-    } catch {
+      navigate("/");
+    } catch (err) {
+      error("Incorrect username or password");
     } finally {
+      setIsLoading(false);
     }
+  };
+
+  const handleOnkeyPress = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === "Enter") loginUser();
   };
 
   const handleOnInputEmail = (value: string) => {
@@ -60,6 +69,7 @@ const Login = () => {
   };
   return (
     <div
+      onKeyPress={handleOnkeyPress}
       style={{ width: widthStr, height: heightStr }}
       className="w-full flex flex-col sm:justify-center items-center p-6 bg-gray-100 dark:bg-slate-900 text-primary"
     >
@@ -71,22 +81,22 @@ const Login = () => {
             <p className="font-medium">to continue to Docs</p>
           </div>
           <TextField
-            value="Email"
-            onInput={() => {}}
+            value={email}
+            onInput={handleOnInputEmail}
             label="Email"
             color="secondary"
-            errors={[]}
+            errors={emailErrors}
           />
           <p className="text-sm hover:underline font-semibold text-blue-500 text-left">
             Need an account? - router to register
           </p>
           <TextField
-            value="Password"
-            onInput={() => {}}
+            value={password}
+            onInput={handleOnInputPassword}
             label="Password"
             type="password"
             color="secondary"
-            errors={[]}
+            errors={passwordErrors}
           />
 
           <button
@@ -97,8 +107,8 @@ const Login = () => {
           </button>
 
           <button
-            onClick={() => {}}
-            disabled={false}
+            onClick={loginUser}
+            disabled={loading}
             className="bg-blue-600 text-white text-sm font-semibold px-3 py-2 rounded hover:bg-blue-500 flex justify-center items-center space-x-1 active:ring-1"
           >
             <span className="">Login</span>
