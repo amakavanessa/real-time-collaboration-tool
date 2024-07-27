@@ -46,7 +46,7 @@ const Login = () => {
 
       login(newAccessToken, newRefreshToken);
       success("Successfully logged in!");
-      navigate("/");
+      navigate("/document/create");
     } catch (err) {
       error("Incorrect username or password");
     } finally {
