@@ -6,6 +6,7 @@ import AuthService from "../../services/auth-service";
 import validator from "validator";
 import axios, { AxiosError } from "axios";
 import TextField from "../../components/atoms/text-field";
+import Logo from "../../components/atoms/logo";
 
 const Register = () => {
   const { widthStr, heightStr } = useWindowSize();
@@ -132,7 +133,7 @@ const Register = () => {
       <div className="w-full max-w-sm bg-white dark:bg-slate-800 rounded border-primary shadow-md border dark:border-0 dark:shadow-xl p-6">
         <div className="flex flex-col space-y-4">
           <div className="w-full text-center flex flex-col justify-center items-center">
-            <h1>Logo</h1>
+            <Logo />
             <h1 className="font-medium text-2xl">Sign up</h1>
             <p className="font-medium">for a Docs account</p>
           </div>
