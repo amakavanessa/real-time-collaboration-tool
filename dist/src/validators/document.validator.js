@@ -12,17 +12,16 @@ class DocumentValidator {
                 max: 25,
             })
                 .withMessage("Title must be between 0 and 25 characters."),
-            (0, express_validator_1.body)("content")
-                .optional()
-                .custom((value) => {
-                try {
-                    JSON.parse(value);
-                }
-                catch (error) {
-                    console.log(error);
-                    throw new Error("invalid document content");
-                }
-            }),
+            // body("content")
+            //   .optional()
+            //   .custom((value) => {
+            //     try {
+            //       JSON.parse(value);
+            //     } catch (error) {
+            //       console.log(error);
+            //       throw new Error("invalid document content");
+            //     }
+            //   }),
             (0, express_validator_1.body)("isPublic")
                 .optional()
                 .isBoolean()

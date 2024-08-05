@@ -12,7 +12,7 @@ class DocumentController {
 
     const { id } = req.params;
 
-    const document = documentService.findDocumentById(
+    const document = await documentService.findDocumentById(
       parseInt(id),
       parseInt(req.user.id)
     );

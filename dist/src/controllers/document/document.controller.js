@@ -24,7 +24,7 @@ class DocumentController {
             if (!req.user)
                 return res.sendStatus(401);
             const { id } = req.params;
-            const document = document_service_1.documentService.findDocumentById(parseInt(id), parseInt(req.user.id));
+            const document = yield document_service_1.documentService.findDocumentById(parseInt(id), parseInt(req.user.id));
             if (document === null)
                 return res.sendStatus(404);
             return res.status(200).json(document);
