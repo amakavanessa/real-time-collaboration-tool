@@ -172,7 +172,7 @@ const Register = () => {
             disabled={loading}
             className="bg-blue-600 text-white text-sm font-semibold px-3 py-2 rounded hover:bg-blue-500 flex justify-center items-center space-x-1 active:ring-1"
           >
-            <span className={`${loading && "opacity-0"}`}>Register</span>
+            <span className={`${loading ? "opacity-0" : ""}`}>Register</span>
           </button>
         </div>
       </div>

@@ -49,6 +49,7 @@
     ]
   },
   "devDependencies": {
+    "@types/react-transition-group": "^4.4.10",
     "tailwindcss": "^3.4.6"
   }
 }

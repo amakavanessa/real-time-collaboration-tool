@@ -32,7 +32,7 @@ const UserDropDown = () => {
         nodeRef={dropDownRef}
         in={showDropDown}
         timeout={200}
-        className="fade-in"
+        classNames="fade-in"
         unmountOnExit
         children={
           <div

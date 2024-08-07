@@ -4,7 +4,7 @@ const Logo = () => {
   return (
     <Link
       to="/document/create"
-      className="flex flesh# justify-center items-center w-14 h-14 hover:bg-gray-100 rounded-full"
+      className="flex flex-shrink-0 justify-center items-center w-14 h-14 hover:bg-gray-100 rounded-full"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

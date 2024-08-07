@@ -17,6 +17,7 @@ const useDocument = (documentId: number) => {
 
     try {
       const response = await DocumentService.get(accessToken, documentId);
+
       setDocument(response.data as DocumentInterface);
     } catch (error: any) {
       if (axios.isAxiosError(error)) {

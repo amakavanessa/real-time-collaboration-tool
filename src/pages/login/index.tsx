@@ -110,9 +110,14 @@ const Login = () => {
           <button
             onClick={loginUser}
             disabled={loading}
-            className="bg-blue-600 text-white text-sm font-semibold px-3 py-2 rounded hover:bg-blue-500 flex justify-center items-center space-x-1 active:ring-1"
+            className={`bg-blue-600 text-white text-sm font-semibold px-3 py-2 rounded flex justify-center items-center space-x-1 
+              ${
+                loading
+                  ? "opacity-50 cursor-not-allowed"
+                  : "hover:bg-blue-500 active:ring-1"
+              }`}
           >
-            <span className="">Login</span>
+            {loading ? "Loading..." : "Login"}
           </button>
         </div>
       </div>
