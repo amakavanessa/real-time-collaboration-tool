@@ -74,7 +74,7 @@ const DocumentMenuButton = ({
         nodeRef={dropdownRef}
         in={showDropdown}
         timeout={200}
-        className="fade-in"
+        classNames="fade-in"
         unmountOnExit
         children={
           <div

@@ -108,7 +108,7 @@ const ShareDocumentModal = () => {
       </button>
       <p className="mx-2">
         <b className="font-semibold">Public</b>
-        <span className="text-gray-600">Anyone with this link can view</span>
+        <span className="text-gray-600"> Anyone with this link can view</span>
       </p>
     </div>
   );
@@ -126,7 +126,7 @@ const ShareDocumentModal = () => {
         </span>
       </button>
       <p className="mx-2">
-        <b className="font-semibold">Public</b>
+        <b className="font-semibold">Restricted </b>
         <span className="text-gray-600">
           Only people added can open with this link
         </span>

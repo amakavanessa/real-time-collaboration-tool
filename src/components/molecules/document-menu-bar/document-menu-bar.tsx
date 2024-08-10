@@ -22,7 +22,9 @@ const CurrentUsers = () => {
             <div
               key={currentUser}
               className={`${backgroundColor} w-8 h-8 text-white font-semibold flex justify-center items-center rounded-full flex-shrink-0 uppercase ring-2`}
-            ></div>
+            >
+              {currentUser[0]}
+            </div>
           );
         })}
     </>

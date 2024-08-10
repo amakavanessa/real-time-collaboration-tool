@@ -28,7 +28,7 @@ const Spinner = ({ size, className }: SpinnerProps) => {
   };
 
   return (
-    <div className={`${getSpinnerSize()} $className spinner`}>
+    <div className={`${getSpinnerSize()} ${className} spinner`}>
       <div className={getSpinnerDivSize()}></div>
       <div className={getSpinnerDivSize()}></div>
       <div className={getSpinnerDivSize()}></div>

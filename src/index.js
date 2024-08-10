@@ -11,6 +11,7 @@ import AuthRoute from "./components/molecules/auth-route";
 import { DocumentProvider } from "./contexts/document-context";
 import Document from "../src/pages/document/index";
 import Create from "./pages/document/create";
+import { EditorProvider } from "./contexts/editor-context";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
@@ -32,7 +33,9 @@ root.render(
                 <AuthRoute
                   element={
                     <DocumentProvider>
-                      <Document />
+                      <EditorProvider>
+                        <Document />
+                      </EditorProvider>
                     </DocumentProvider>
                   }
                 />
