@@ -29,6 +29,8 @@ class ShareController {
       where: { email },
     });
 
+    // console.log(sharedUser);
+
     if (!sharedUser) return res.sendStatus(400);
 
     const documentUser = await DocumentUser.create({

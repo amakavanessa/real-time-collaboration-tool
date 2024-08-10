@@ -24,10 +24,12 @@ const port = 8080;
 
 db.sequelize.sync();
 
-app.get("/", (req: Request, res: Response) => {
-  res.send("Express + Typescript server");
-});
+// app.get("/", (req: Request, res: Response) => {
+//   res.send("Express + Typescript server");
+// });
 
-app.listen(port, () => {
-  console.log(`Server is listening on port:${port}`);
-});
+// app.listen(port, () => {
+//   console.log(`Server is listening on port:${port}`);
+// });
+
+export default app;

@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npx tsc",
-    "start": "node dist/src/index.js",
-    "dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/src/index.js\""
+    "start": "node dist/src/server.js",
+    "dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/src/server.js\""
   },
   "repository": {
     "type": "git",
@@ -29,7 +29,8 @@
     "nodemailer": "^6.9.14",
     "pg": "^8.12.0",
     "sequelize": "^6.37.3",
-    "sequelize-typescript": "^2.1.6"
+    "sequelize-typescript": "^2.1.6",
+    "socket.io": "^4.7.5"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",

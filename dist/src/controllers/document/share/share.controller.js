@@ -38,6 +38,7 @@ class ShareController {
             const sharedUser = yield user_model_1.User.findOne({
                 where: { email },
             });
+            // console.log(sharedUser);
             if (!sharedUser)
                 return res.sendStatus(400);
             const documentUser = yield document_user_model_1.DocumentUser.create({

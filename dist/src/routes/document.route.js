@@ -12,6 +12,6 @@ router.get("/", auth_1.authenticate, document_controller_1.documentController.ge
 router.put("/:id", auth_1.authenticate, document_validator_1.documentValidator.update, document_controller_1.documentController.update);
 router.post("/", auth_1.authenticate, document_controller_1.documentController.create);
 router.delete("/:id", auth_1.authenticate, document_controller_1.documentController.delete);
-router.post(":/id/share", auth_1.authenticate, share_validator_1.shareValidator.create, share_controller_1.shareController.create);
+router.post("/:id/share", auth_1.authenticate, share_validator_1.shareValidator.create, share_controller_1.shareController.create);
 router.delete("/:documentId/share/:userId", auth_1.authenticate, share_controller_1.shareController.delete);
 exports.default = router;

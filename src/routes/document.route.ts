@@ -23,7 +23,7 @@ router.post("/", authenticate, documentController.create);
 router.delete("/:id", authenticate, documentController.delete);
 
 router.post(
-  ":/id/share",
+  "/:id/share",
   authenticate,
   shareValidator.create,
   shareController.create
