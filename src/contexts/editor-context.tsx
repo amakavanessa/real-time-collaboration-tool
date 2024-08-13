@@ -80,9 +80,9 @@ export const EditorProvider = ({ children }: EditorProviderInterface) => {
     editorRef.current.focus();
   };
 
-  //send Changes
+  // Send Changes
   const handleEditorChange = (editorState: EditorState) => {
-    setEditorState(EditorState.moveSelectionToEnd(editorState));
+    setEditorState(editorState);
 
     if (socket === null) return;
 
@@ -111,8 +111,7 @@ export const EditorProvider = ({ children }: EditorProviderInterface) => {
     }, DEFAULT_SAVE_TIME);
   };
 
-  //load document content
-
+  // Load Document Content
   useEffect(() => {
     if (documentRendered || document === null || document.content === null)
       return;
@@ -121,7 +120,7 @@ export const EditorProvider = ({ children }: EditorProviderInterface) => {
         JSON.parse(document.content) as RawDraftContentState
       );
       const newEditorState = EditorState.createWithContent(contentState);
-      setEditorState(EditorState.moveSelectionToEnd(newEditorState));
+      setEditorState(newEditorState);
     } catch {
       error("Error when loading document.");
     } finally {
@@ -129,7 +128,7 @@ export const EditorProvider = ({ children }: EditorProviderInterface) => {
     }
   }, [document]);
 
-  //   connect socket
+  // Connect Socket
   useEffect(() => {
     if (
       document === null ||
@@ -144,16 +143,14 @@ export const EditorProvider = ({ children }: EditorProviderInterface) => {
     }).connect();
   }, [document, socket, accessToken]);
 
-  //Disconnnect socket
-
+  // Disconnect Socket
   useEffect(() => {
     return () => {
       socket?.current?.disconnect();
     };
   }, []);
 
-  //Receive Changes
-
+  // Receive Changes
   useEffect(() => {
     if (socket.current === null) return;
 
@@ -161,7 +158,7 @@ export const EditorProvider = ({ children }: EditorProviderInterface) => {
       const contentState = convertFromRaw(rawDraftContentState);
       const newEditorState = EditorState.createWithContent(contentState);
 
-      setEditorState(EditorState.moveSelectionToEnd(newEditorState));
+      setEditorState(newEditorState);
     };
     socket.current.on(SocketEvent.RECEIVE_CHANGES, handler);
 
@@ -170,8 +167,7 @@ export const EditorProvider = ({ children }: EditorProviderInterface) => {
     };
   }, [socket.current]);
 
-  //   update current users
-
+  // Update Current Users
   useEffect(() => {
     if (socket.current === null) return;
 
