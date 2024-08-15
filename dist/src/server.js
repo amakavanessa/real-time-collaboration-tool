@@ -12,13 +12,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
 const http_1 = __importDefault(require("http"));
 const index_1 = __importDefault(require("./index"));
 const socket_io_1 = require("socket.io");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const document_service_1 = require("./services/document.service");
 const socket_events_enums_1 = __importDefault(require("./types/enums/socket-events-enums"));
-const port = 8080;
+const env_config_1 = __importDefault(require("./config/env.config"));
+const port = env_config_1.default.PORT;
 const server = http_1.default.createServer(index_1.default);
 const io = new socket_io_1.Server(server, {
     cors: { origin: "*", methods: "*" },

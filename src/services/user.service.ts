@@ -97,7 +97,6 @@ class UserService {
     const refreshToken = await RefreshToken.findOne({
       where: { token },
     });
-
     return refreshToken != null;
   };
 

@@ -3,14 +3,14 @@ import env from "./env.config";
 
 const sequelize =
   env.NODE_ENV === "test" || env.NODE_ENV === "development"
-    ? new Sequelize("postgres", "postgres", "pass1234", {
-        host: "localhost",
-        dialect: "postgres",
+    ? new Sequelize(env.DATABASE, env.DB_USER, env.DB_PASSWORD, {
+        host: env.DB_HOST,
+        dialect: env.DB_DIALECT,
         logging: false,
       })
-    : new Sequelize("postgres://postgres:pass1234@localhost:5432/postgres", {
-        dialect: "postgres",
-        protocol: "postgres",
+    : new Sequelize(env.DATABASE_URL, {
+        dialect: env.DB_DIALECT,
+        protocol: env.DB_PROTOCOL,
         dialectOptions: {},
         logging: false,
       });

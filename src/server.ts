@@ -1,12 +1,16 @@
+import dotenv from "dotenv";
+dotenv.config();
+
 import http from "http";
 import app from "./index";
 import { Server } from "socket.io";
 import jwt, { VerifyErrors } from "jsonwebtoken";
 import { documentService } from "./services/document.service";
-import { DocumentUser } from "./db/models/document-user.model";
 import SocketEvent from "./types/enums/socket-events-enums";
 
-const port = 8080;
+import env from "./config/env.config";
+
+const port = env.PORT;
 
 const server = http.createServer(app);
 
