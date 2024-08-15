@@ -87,6 +87,7 @@ export const EditorProvider = ({ children }: EditorProviderInterface) => {
     if (socket === null) return;
 
     const content = convertToRaw(editorState.getCurrentContent());
+
     socket.current.emit(SocketEvent.SEND_CHANGES, content);
 
     const updatedDocument = {
@@ -119,6 +120,7 @@ export const EditorProvider = ({ children }: EditorProviderInterface) => {
       const contentState = convertFromRaw(
         JSON.parse(document.content) as RawDraftContentState
       );
+
       const newEditorState = EditorState.createWithContent(contentState);
       setEditorState(newEditorState);
     } catch {
@@ -157,7 +159,6 @@ export const EditorProvider = ({ children }: EditorProviderInterface) => {
     const handler = (rawDraftContentState: RawDraftContentState) => {
       const contentState = convertFromRaw(rawDraftContentState);
       const newEditorState = EditorState.createWithContent(contentState);
-
       setEditorState(newEditorState);
     };
     socket.current.on(SocketEvent.RECEIVE_CHANGES, handler);
@@ -165,7 +166,7 @@ export const EditorProvider = ({ children }: EditorProviderInterface) => {
     return () => {
       socket.current.off(SocketEvent.RECEIVE_CHANGES, handler);
     };
-  }, [socket.current]);
+  }, [socket.current, document]);
 
   // Update Current Users
   useEffect(() => {
