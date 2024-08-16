@@ -4,6 +4,7 @@ import { documentController } from "../controllers/document/document.controller"
 import { documentValidator } from "../validators/document.validator";
 import { shareValidator } from "../validators/share.validator";
 import { shareController } from "../controllers/document/share/share.controller";
+import validate from "../validators/validate";
 
 const router = Router();
 
@@ -14,7 +15,7 @@ router.get("/", authenticate, documentController.getAll);
 router.put(
   "/:id",
   authenticate,
-  documentValidator.update,
+  validate(documentValidator.update),
   documentController.update
 );
 
@@ -25,7 +26,7 @@ router.delete("/:id", authenticate, documentController.delete);
 router.post(
   "/:id/share",
   authenticate,
-  shareValidator.create,
+  validate(shareValidator.create),
   shareController.create
 );
 

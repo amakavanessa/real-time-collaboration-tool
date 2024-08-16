@@ -47,12 +47,16 @@ class AuthController {
                 return res.status(400).json(err);
             }
             const refreshToken = req.body.token;
+            console.log(refreshToken);
             const isTokenActive = yield user_service_1.userService.getIsTokenActive(refreshToken);
+            console.log(isTokenActive);
             if (!isTokenActive)
                 return res.sendStatus(403);
             jsonwebtoken_1.default.verify(refreshToken, "refresh_token", (error, decoded) => __awaiter(this, void 0, void 0, function* () {
-                if (error)
+                if (error) {
+                    console.log(error);
                     return res.sendStatus(403);
+                }
                 try {
                     const { id, email, roles } = decoded;
                     const user = { id, email, roles };

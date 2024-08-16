@@ -42,8 +42,9 @@ class AuthController {
     }
 
     const refreshToken = req.body.token;
-
+    console.log(refreshToken);
     const isTokenActive = await userService.getIsTokenActive(refreshToken);
+    console.log(isTokenActive);
 
     if (!isTokenActive) return res.sendStatus(403);
 
@@ -51,7 +52,10 @@ class AuthController {
       refreshToken,
       "refresh_token",
       async (error: VerifyErrors | null, decoded: unknown) => {
-        if (error) return res.sendStatus(403);
+        if (error) {
+          console.log(error);
+          return res.sendStatus(403);
+        }
 
         try {
           const { id, email, roles } = decoded as RequestUser;
