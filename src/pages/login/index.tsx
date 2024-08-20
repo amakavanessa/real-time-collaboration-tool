@@ -5,7 +5,7 @@ import validator from "validator";
 import AuthService from "../../services/auth-service";
 import useAuth from "../../hooks/use-auth";
 import { ToastContext } from "../../contexts/toast-context";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Logo from "../../components/atoms/logo";
 
 const Login = () => {
@@ -42,11 +42,13 @@ const Login = () => {
     setIsLoading(true);
     try {
       const response = await AuthService.login({ email, password });
+
       const { accessToken: newAccessToken, refreshToken: newRefreshToken } =
         response.data;
 
       login(newAccessToken, newRefreshToken);
       success("Successfully logged in!");
+      console.log("<>Hello from login</>");
       navigate("/document/create");
     } catch (err) {
       error("Incorrect username or password");
@@ -70,7 +72,7 @@ const Login = () => {
   };
   return (
     <div
-      onKeyPress={handleOnkeyPress}
+      // onKeyPress={handleOnkeyPress}
       style={{ width: widthStr, height: heightStr }}
       className="w-full flex flex-col sm:justify-center items-center p-6 bg-gray-100 dark:bg-slate-900 text-primary"
     >
@@ -88,9 +90,14 @@ const Login = () => {
             color="secondary"
             errors={emailErrors}
           />
-          <p className="text-sm hover:underline font-semibold text-blue-500 text-left">
-            Need an account? - router to register
-          </p>
+
+          <Link
+            to="/register"
+            className="text-sm hover:underline font-semibold text-blue-500 text-left"
+          >
+            Need an account? - register
+          </Link>
+
           <TextField
             value={password}
             onInput={handleOnInputPassword}

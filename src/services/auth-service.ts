@@ -11,8 +11,8 @@ const AuthService = {
   }) => {
     return API.post("user", payload);
   },
-  refreshToken: (payload: { token: string }) => {
-    return API.post("auth/refresh-token", payload);
+  refreshAccessToken: (payload: { token: string }) => {
+    return API.post("auth/refresh-access-token", payload);
   },
   logout: (accessToken: string) => {
     return API.delete("auth/logout", {

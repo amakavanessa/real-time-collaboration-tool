@@ -29,12 +29,13 @@ const useAuth = () => {
 
   const login = (accessToken: string, refreshToken: string) => {
     const { exp, id, email } = jwt_decode<Token>(accessToken);
-    silentRefresh(exp);
+
     setUserId(id);
     setEmail(email);
     setAccessToken(accessToken);
     setRefreshToken(refreshToken);
     setIsAuthenticated(true);
+    silentRefresh(exp);
   };
   const logout = async () => {
     if (!accessToken) return;
@@ -70,14 +71,18 @@ const useAuth = () => {
       return;
     }
     try {
-      const response = await AuthService.refreshToken({ token: refreshToken });
+      const response = await AuthService.refreshAccessToken({
+        token: refreshToken,
+      });
       const { accessToken: newAccessToken, refreshToken: newRefreshToken } =
         response.data;
+
       login(newAccessToken, newRefreshToken);
     } catch (error) {
       destroyAuth();
     } finally {
       setLoadingAuth(false);
+      console.log("hello from finally refreshAccestoken");
     }
   };
 

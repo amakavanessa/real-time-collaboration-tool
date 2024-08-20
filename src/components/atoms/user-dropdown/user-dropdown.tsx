@@ -14,6 +14,7 @@ const UserDropDown = () => {
   const navigate = useNavigate();
 
   const logoutUser = async () => {
+    console.log("from the logout route");
     await logout();
 
     success("Successfully logged out!");
@@ -23,7 +24,10 @@ const UserDropDown = () => {
   return (
     <div className="relative" onBlur={() => setShowDropDown(false)}>
       <button
-        onClick={() => setShowDropDown(!showDropDown)}
+        onClick={() => {
+          setShowDropDown(!showDropDown);
+          console.log("shown");
+        }}
         className={`${backgroundColor} w-8 h-8 text-white font-semibold flex justify-center items-center rounded-full ring-2 flex-shrink-0 uppercase`}
       >
         {email !== null && email[0]}
@@ -40,7 +44,7 @@ const UserDropDown = () => {
             className="absolute top-full mt-1 right-0 z-10 w-52 bg-white py-2 rounded-sm shadow-lg border"
           >
             <button
-              onClick={logoutUser}
+              onMouseDown={logoutUser}
               className="w-full text-black hover:bg-gray-100 text-sm px-6 py-1 text-left"
             >
               Logout

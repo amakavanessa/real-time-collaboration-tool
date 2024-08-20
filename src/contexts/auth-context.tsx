@@ -1,4 +1,3 @@
-import { error } from "console";
 import { createContext, Dispatch, SetStateAction, useState } from "react";
 
 interface AuthContextInterface {

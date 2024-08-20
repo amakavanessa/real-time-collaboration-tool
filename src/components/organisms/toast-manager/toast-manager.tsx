@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useRef } from "react";
 import { ToastContext } from "../../../contexts/toast-context";
 import useWindowSize from "../../../hooks/use-window-size";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
@@ -9,6 +9,8 @@ const ToastManager = () => {
 
   const heightStr = useWindowSize();
 
+  const toastRef = useRef(null);
+
   return (
     <div
       className="left-4 top-4 sm:top-auto sm:bottom-4 fixed z-40 right-4 sm:w-96 overflow-y-auto scrollbar-hidden"
@@ -18,11 +20,16 @@ const ToastManager = () => {
         {toasts.reverse().map((toast) => {
           return (
             <CSSTransition
+              nodeRef={toastRef}
               key={toast.id}
               timeout={200}
               classNames="slide-in"
               unmountOnExit
-              children={<Toast {...toast} />}
+              children={
+                <div ref={toastRef}>
+                  <Toast {...toast} />
+                </div>
+              }
             />
           );
         })}
