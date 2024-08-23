@@ -7,6 +7,7 @@ import useAuth from "../../hooks/use-auth";
 import { ToastContext } from "../../contexts/toast-context";
 import { Link, useNavigate } from "react-router-dom";
 import Logo from "../../components/atoms/logo";
+import { AtSymbolIcon, LockClosedIcon } from "@heroicons/react/outline";
 
 const Login = () => {
   const { widthStr, heightStr } = useWindowSize();
@@ -72,7 +73,7 @@ const Login = () => {
   };
   return (
     <div
-      // onKeyPress={handleOnkeyPress}
+      onKeyPress={handleOnkeyPress}
       style={{ width: widthStr, height: heightStr }}
       className="w-full flex flex-col sm:justify-center items-center p-6 bg-gray-100 dark:bg-slate-900 text-primary"
     >
@@ -89,6 +90,7 @@ const Login = () => {
             label="Email"
             color="secondary"
             errors={emailErrors}
+            icon={<AtSymbolIcon className="w-5 h-5" />}
           />
 
           <Link
@@ -105,6 +107,7 @@ const Login = () => {
             type="password"
             color="secondary"
             errors={passwordErrors}
+            icon={<LockClosedIcon className="w-5 h-5" />}
           />
 
           <button

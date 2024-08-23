@@ -42,13 +42,15 @@ const FontSelect = () => {
         children={
           <div
             ref={dropdownRef}
-            className="absolute top-full left-0 z-10 w-52 bg-white py-2 rounded-sm shadow-lg border text-sm"
+            className="absolute top-full left-0 z-10 w-52 bg-white py-2 rounded-sm shadow-lg border text-sm max-h-48 overflow-y-auto scrollbar-hide"
           >
             {FONTS.map((font) => {
               return (
                 <button
                   key={font}
-                  onClick={() => setCurrentFont(font)}
+                  onMouseDown={() => {
+                    setCurrentFont(font);
+                  }}
                   style={{ fontFamily: `'${font}', sans-serif` }}
                   className="w-full text-black hover:bg-gray-100 text-sm px-6 py-1 text-left"
                 >

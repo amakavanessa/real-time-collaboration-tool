@@ -7,6 +7,7 @@ import validator from "validator";
 import axios, { AxiosError } from "axios";
 import TextField from "../../components/atoms/text-field";
 import Logo from "../../components/atoms/logo";
+import { AtSymbolIcon, LockClosedIcon } from "@heroicons/react/outline";
 
 const Register = () => {
   const { widthStr, heightStr } = useWindowSize();
@@ -143,6 +144,7 @@ const Register = () => {
             label="Email"
             color="secondary"
             errors={emailErrors}
+            icon={<AtSymbolIcon className="w-5 h-5" />}
           />
           <TextField
             value={password1}
@@ -151,14 +153,16 @@ const Register = () => {
             type="password"
             color="secondary"
             errors={password1Errors}
+            icon={<LockClosedIcon className="w-5 h-5" />}
           />
           <TextField
             value={password2}
             onInput={handleOnInputPassword2}
-            label="Password"
+            label="Confirm password"
             type="password"
             color="secondary"
             errors={password2Errors}
+            icon={<LockClosedIcon className="w-5 h-5" />}
           />
 
           <Link

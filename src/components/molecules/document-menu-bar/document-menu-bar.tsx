@@ -7,6 +7,8 @@ import Logo from "../../atoms/logo";
 import UserDropDown from "../../atoms/user-dropdown/user-dropdown";
 import useRandomBackground from "../../../hooks/use-random-background";
 import ShareDocumentModal from "../share-document-modal";
+import DocumentToolbar from "../document-tool-bar/document-tool-bar";
+import { EditorContext } from "../../../contexts/editor-context";
 
 const CurrentUsers = () => {
   const { email } = useAuth();
@@ -41,6 +43,8 @@ const DocumentMenuBar = () => {
     setSaving,
     setErrors,
   } = useContext(DocumentContext);
+
+  const { editorState, setEditorState } = useContext(EditorContext);
 
   const handleTitleInputChange = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -88,7 +92,7 @@ const DocumentMenuBar = () => {
             id=""
             placeholder="Untitled Document"
           />
-          <div className="flex items-center">
+          {/* <div className="flex items-center">
             <button className="text-sm whitespace-nowrap px-2 py-1 font-medium hover:bg-gray-100 rounded-md">
               File
             </button>
@@ -115,6 +119,12 @@ const DocumentMenuBar = () => {
             </button>
 
             {saving && <p className="text-sm text-gray-500 px-2">Saving...</p>}
+          </div> */}
+          <div className="flex items-center">
+            <DocumentToolbar
+              editorState={editorState}
+              setEditorState={setEditorState}
+            />
           </div>
         </div>
       </div>

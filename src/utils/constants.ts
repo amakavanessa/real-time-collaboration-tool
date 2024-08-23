@@ -1,6 +1,6 @@
 export const colors = [
   "bg-red-700",
-  "bg-oorange-700",
+  "bg-orange-700",
   "bg-amber-700",
   "bg-yellow-700",
   "bg-lime-700",

@@ -1,10 +1,17 @@
 import { useContext } from "react";
 import { EditorContext } from "../../../contexts/editor-context";
 import { Editor } from "draft-js";
+import "./draftEditor.css";
 
 const DocumentEditor = () => {
-  const { editorState, editorRef, handleEditorChange, focusEditor } =
-    useContext(EditorContext);
+  const {
+    editorState,
+    editorRef,
+    handleEditorChange,
+    focusEditor,
+    styleMap,
+    myBlockStyleFn,
+  } = useContext(EditorContext);
 
   return (
     <div
@@ -16,6 +23,8 @@ const DocumentEditor = () => {
         ref={editorRef}
         editorState={editorState}
         onChange={handleEditorChange}
+        customStyleMap={styleMap}
+        blockStyleFn={myBlockStyleFn}
       />
     </div>
   );

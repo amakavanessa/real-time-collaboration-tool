@@ -5,6 +5,7 @@ import { useContext, useEffect, useRef } from "react";
 import DocumentHeader from "../../components/organisms/document-header";
 import { DocumentContext } from "../../contexts/document-context";
 import DocumentEditor from "../../components/organisms/document-editor";
+import { EditorContext } from "../../contexts/editor-context";
 
 const Document = () => {
   const { heightStr, widthStr } = useWindowSize();
@@ -12,6 +13,7 @@ const Document = () => {
   const documentHeaderRef = useRef<null | HTMLDivElement>(null);
   const { loading, document } = useDocument(parseInt(documentId as string));
   const { setDocument } = useContext(DocumentContext);
+  const { currentFont } = useContext(EditorContext);
 
   const documentViewerHeight = `calc(${heightStr} - ${documentHeaderRef.current?.clientHeight}px)`;
 
@@ -34,7 +36,7 @@ const Document = () => {
             className="w-full flex flexcol justify-start items-center overflow-hidden"
           >
             <div
-              style={{ width: widthStr }}
+              style={{ width: widthStr, fontFamily: currentFont }}
               className="h-full w-full overflow-auto space-y-4 flex flex-col items-center p-4"
             >
               <DocumentEditor />

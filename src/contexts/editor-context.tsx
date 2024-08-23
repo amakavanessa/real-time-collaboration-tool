@@ -11,6 +11,7 @@ import {
 import {
   convertFromRaw,
   convertToRaw,
+  DraftStyleMap,
   Editor,
   EditorState,
   RawDraftContentState,
@@ -35,6 +36,8 @@ interface EditorContextInterface {
   focusEditor: () => void;
   currentFont: string;
   setCurrentFont: Dispatch<SetStateAction<string>>;
+  styleMap: DraftStyleMap;
+  myBlockStyleFn: (contentBlock: any) => string | undefined;
 }
 
 const defaultValues = {
@@ -48,6 +51,8 @@ const defaultValues = {
   focusEditor: () => {},
   currentFont: FONTS[0],
   setCurrentFont: () => {},
+  styleMap: {},
+  myBlockStyleFn: (contentBlock: any) => undefined,
 };
 
 export const EditorContext =
@@ -110,6 +115,80 @@ export const EditorProvider = ({ children }: EditorProviderInterface) => {
       await saveDocument(updatedDocument);
       if (saveInterval) clearInterval(saveInterval);
     }, DEFAULT_SAVE_TIME);
+  };
+
+  // FOR INLINE STYLES
+  const styleMap: DraftStyleMap = {
+    CODE: {
+      backgroundColor: "rgba(0, 0, 0, 0.05)",
+      fontFamily: '"Inconsolata", "Menlo", "Consolas", monospace',
+      fontSize: 16,
+      padding: 2,
+    },
+    HIGHLIGHT: {
+      backgroundColor: "#F7A5F7",
+    },
+    UPPERCASE: {
+      textTransform: "uppercase",
+    },
+    LOWERCASE: {
+      textTransform: "lowercase",
+    },
+    CAPITALIZE: {
+      textTransform: "capitalize",
+    },
+    CODEBLOCK: {
+      fontFamily: '"fira-code", "monospace"',
+      fontSize: "inherit",
+      background: "#ffeff0",
+      fontStyle: "italic",
+      lineHeight: 1.5,
+      padding: "0.3rem 0.5rem",
+      borderRadius: " 0.2rem",
+    },
+    SUPERSCRIPT: {
+      verticalAlign: "super",
+      fontSize: "80%",
+    },
+    SUBSCRIPT: {
+      verticalAlign: "sub",
+      fontSize: "80%",
+    },
+  };
+
+  // FOR BLOCK LEVEL STYLES(Returns CSS Class From DraftEditor.css)
+  const myBlockStyleFn = (contentBlock) => {
+    const type = contentBlock.getType();
+    switch (type) {
+      case "blockQuote":
+        return "superFancyBlockquote";
+      case "leftAlign":
+        return "leftAlign";
+      case "rightAlign":
+        return "rightAlign";
+      case "centerAlign":
+        return "centerAlign";
+      case "justifyAlign":
+        return "justifyAlign";
+      case "header-one":
+        return "header-one";
+      case "header-two":
+        return "header-two";
+      case "header-three":
+        return "header-three";
+      case "header-four":
+        return "header-four";
+      case "header-five":
+        return "header-five";
+      case "header-six":
+        return "header-six";
+      case "unordered-list-item":
+        return "unordered-list-item";
+      case "ordered-list-item":
+        return "ordered-list-item";
+      default:
+        break;
+    }
   };
 
   // Load Document Content
@@ -196,6 +275,8 @@ export const EditorProvider = ({ children }: EditorProviderInterface) => {
         setCurrentFont,
         focusEditor,
         handleEditorChange,
+        styleMap,
+        myBlockStyleFn,
       }}
     >
       {children}
