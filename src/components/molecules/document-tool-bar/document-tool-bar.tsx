@@ -26,31 +26,31 @@ import {
 const DocumentToolbar = ({ editorState, setEditorState }) => {
   const tools = [
     {
-      label: "bold",
+      label: "Bold",
       style: "BOLD",
       icon: <FaBold />,
       method: "inline",
     },
     {
-      label: "italic",
+      label: "Italic",
       style: "ITALIC",
       icon: <FaItalic />,
       method: "inline",
     },
     {
-      label: "underline",
+      label: "Underline",
       style: "UNDERLINE",
       icon: <FaUnderline />,
       method: "inline",
     },
     {
-      label: "highlight",
+      label: "Highlight",
       style: "HIGHLIGHT",
       icon: <FaHighlighter />,
       method: "inline",
     },
     {
-      label: "strike-through",
+      label: "Strike-through",
       style: "STRIKETHROUGH",
       icon: <FaStrikethrough />,
       method: "inline",
@@ -98,7 +98,7 @@ const DocumentToolbar = ({ editorState, setEditorState }) => {
       method: "inline",
     },
     {
-      label: "lowercase",
+      label: "Lowercase",
       style: "LOWERCASE",
       icon: <TbLetterCaseLower />,
       method: "inline",

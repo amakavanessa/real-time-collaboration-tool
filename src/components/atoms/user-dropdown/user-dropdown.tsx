@@ -26,7 +26,6 @@ const UserDropDown = () => {
       <button
         onClick={() => {
           setShowDropDown(!showDropDown);
-          console.log("shown");
         }}
         className={`${backgroundColor} w-8 h-8 text-white font-semibold flex justify-center items-center rounded-full ring-2 flex-shrink-0 uppercase`}
       >

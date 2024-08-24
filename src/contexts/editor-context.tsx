@@ -36,6 +36,8 @@ interface EditorContextInterface {
   focusEditor: () => void;
   currentFont: string;
   setCurrentFont: Dispatch<SetStateAction<string>>;
+  fontSize: number;
+  setFontSize: Dispatch<SetStateAction<number>>;
   styleMap: DraftStyleMap;
   myBlockStyleFn: (contentBlock: any) => string | undefined;
 }
@@ -51,6 +53,8 @@ const defaultValues = {
   focusEditor: () => {},
   currentFont: FONTS[0],
   setCurrentFont: () => {},
+  fontSize: 14,
+  setFontSize: () => {},
   styleMap: {},
   myBlockStyleFn: (contentBlock: any) => undefined,
 };
@@ -73,6 +77,7 @@ export const EditorProvider = ({ children }: EditorProviderInterface) => {
   );
   const editorRef = useRef<null | Editor>(defaultValues.editorRef);
   const [currentFont, setCurrentFont] = useState(defaultValues.currentFont);
+  const [fontSize, setFontSize] = useState(defaultValues.fontSize);
 
   const { document, setCurrentUsers, setSaving, setDocument, saveDocument } =
     useContext(DocumentContext);
@@ -273,6 +278,8 @@ export const EditorProvider = ({ children }: EditorProviderInterface) => {
         currentFont,
         setEditorState,
         setCurrentFont,
+        fontSize,
+        setFontSize,
         focusEditor,
         handleEditorChange,
         styleMap,

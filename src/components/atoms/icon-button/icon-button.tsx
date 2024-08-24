@@ -24,7 +24,7 @@ const IconButton = ({ icon, tooltip, onClick }: IconButtonProps) => {
       {showTooltip && (
         <div className="absolute top-full flex-col flex items-center">
           <div className="arrow-up border-b-gray-700"></div>
-          <div className="relative -top-[1px] bg-gray-700 text-white text-xs font-medium text-center py-1 px-2 rounded-sm">
+          <div className="relative -top-[1px] text-[10px] text-center py-1 px-2  border-[0.5px] border-gray-900">
             {tooltip}
           </div>
         </div>

@@ -22,6 +22,7 @@ const ShareDocumentModal = () => {
   const { accessToken } = useAuth();
   const { success, error } = useContext(ToastContext);
   const [loading, setLoading] = useState(false);
+  const [copied, setCopied] = useState(false);
 
   const shareDocument = async () => {
     if (
@@ -69,6 +70,7 @@ const ShareDocumentModal = () => {
     copyLinkInputRef.current.focus();
     copyLinkInputRef.current.select();
     window.document.execCommand("copy");
+    setCopied(true);
   };
 
   const handleOnKeyPress = async (event: React.KeyboardEvent) => {
@@ -225,7 +227,7 @@ const ShareDocumentModal = () => {
                     onClick={handleCopyLinkBtnClick}
                     className="font-semibold text-blue-600 p-2 hover:bg-blue-50 rounded-md"
                   >
-                    Copy Link
+                    {copied ? "Copied" : "Copy Link"}
                   </button>
                 </div>
               </div>

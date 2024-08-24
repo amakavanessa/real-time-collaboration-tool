@@ -4,6 +4,7 @@ import { EditorState } from "draft-js";
 import IconButton from "../../atoms/icon-button/icon-button";
 import FontSelect from "../../atoms/font-select";
 import { TiArrowBack, TiArrowForward } from "react-icons/ti";
+import FontSize from "../../atoms/font-size/font-size";
 
 const EditorToolbar = () => {
   const { editorState, setEditorState } = useContext(EditorContext);
@@ -30,6 +31,7 @@ const EditorToolbar = () => {
       />
       <div className="h-5 border-l border-l-gray-300 mx-2"></div>
       <FontSelect />
+      <FontSize />
     </div>
   );
 };
