@@ -9,9 +9,9 @@ const router = Router();
 router.post("/login", validate(authValidator.login), authController.login);
 
 router.post(
-  "/refresh-token",
-  validate(authValidator.refreshToken),
-  authController.refreshToken
+  "/refresh-access-token",
+  validate(authValidator.refreshAccessToken),
+  authController.refreshAccessToken
 );
 
 router.delete("/logout", authenticate, authController.logout);

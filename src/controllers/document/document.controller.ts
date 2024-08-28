@@ -5,6 +5,7 @@ import { where } from "sequelize";
 import { Document } from "../../db/models/document.model";
 import { DocumentUser } from "../../db/models/document-user.model";
 import { validationResult } from "express-validator";
+import crypto from "crypto";
 
 class DocumentController {
   public getOne = catchAsync(async (req: Request, res: Response) => {
@@ -76,8 +77,11 @@ class DocumentController {
   });
 
   public create = catchAsync(async (req: Request, res: Response) => {
+    if (!req.user) return res.sendStatus(401);
+    const token = crypto.randomBytes(16).toString("hex");
     const document = await Document.create({
-      userId: req.user?.id,
+      userId: req.user.id,
+      token: token,
     });
 
     return res.status(201).json(document);
@@ -94,6 +98,24 @@ class DocumentController {
     });
 
     return res.sendStatus(200);
+  });
+
+  // Access document by token
+  public getOneByToken = catchAsync(async (req: Request, res: Response) => {
+    if (!req.user) return res.sendStatus(401);
+    const { token } = req.params;
+    const userId = req.user.id;
+
+    const document = await documentService.findDocumentByToken(
+      token,
+      parseInt(userId)
+    );
+
+    if (!document) {
+      return res.status(404).json({ message: "ACcess Denied" });
+    }
+
+    return res.status(200).json(document);
   });
 }
 

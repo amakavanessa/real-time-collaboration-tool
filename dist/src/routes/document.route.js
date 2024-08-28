@@ -11,7 +11,7 @@ const share_validator_1 = require("../validators/share.validator");
 const share_controller_1 = require("../controllers/document/share/share.controller");
 const validate_1 = __importDefault(require("../validators/validate"));
 const router = (0, express_1.Router)();
-router.get("/:id", auth_1.authenticate, document_controller_1.documentController.getOne);
+router.get("/:token/:id", auth_1.authenticate, document_controller_1.documentController.getOneByToken);
 router.get("/", auth_1.authenticate, document_controller_1.documentController.getAll);
 router.put("/:id", auth_1.authenticate, (0, validate_1.default)(document_validator_1.documentValidator.update), document_controller_1.documentController.update);
 router.post("/", auth_1.authenticate, document_controller_1.documentController.create);

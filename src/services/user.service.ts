@@ -81,14 +81,17 @@ class UserService {
     });
 
     const refreshToken = jwt.sign(requestUser, "refresh_token", {
-      expiresIn: "24h",
+      expiresIn: "7d",
     });
 
     await RefreshToken.destroy({
       where: { userId: requestUser.id },
     });
 
-    await RefreshToken.create({ token: refreshToken, userId: requestUser.id });
+    await RefreshToken.create({
+      token: refreshToken,
+      userId: requestUser.id,
+    });
 
     return { accessToken, refreshToken };
   };
@@ -97,6 +100,7 @@ class UserService {
     const refreshToken = await RefreshToken.findOne({
       where: { token },
     });
+
     return refreshToken != null;
   };
 

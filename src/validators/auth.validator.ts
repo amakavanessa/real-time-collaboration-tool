@@ -9,7 +9,7 @@ class AuthValidator {
     body("password").exists().withMessage("Password is required"),
   ];
 
-  public refreshToken = [
+  public refreshAccessToken = [
     body("token").exists().withMessage("Must provide a valid token."),
   ];
 }

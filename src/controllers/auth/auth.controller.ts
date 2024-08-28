@@ -34,43 +34,44 @@ class AuthController {
     return res.status(200).json(authResponse);
   });
 
-  public refreshToken = catchAsync(async (req: Request, res: Response) => {
-    const err = validationResult(req);
+  public refreshAccessToken = catchAsync(
+    async (req: Request, res: Response) => {
+      const err = validationResult(req);
 
-    if (!err.isEmpty()) {
-      return res.status(400).json(err);
-    }
-
-    const refreshToken = req.body.token;
-    console.log(refreshToken);
-    const isTokenActive = await userService.getIsTokenActive(refreshToken);
-    console.log(isTokenActive);
-
-    if (!isTokenActive) return res.sendStatus(403);
-
-    jwt.verify(
-      refreshToken,
-      "refresh_token",
-      async (error: VerifyErrors | null, decoded: unknown) => {
-        if (error) {
-          console.log(error);
-          return res.sendStatus(403);
-        }
-
-        try {
-          const { id, email, roles } = decoded as RequestUser;
-          const user = { id, email, roles };
-
-          const authResponse = await userService.generateAuthResponse(user);
-
-          return res.status(200).json(authResponse);
-        } catch (error) {
-          console.log(error);
-          res.sendStatus(403);
-        }
+      if (!err.isEmpty()) {
+        return res.status(400).json(err);
       }
-    );
-  });
+
+      const refreshToken = req.body.token;
+
+      const isTokenActive = await userService.getIsTokenActive(refreshToken);
+
+      if (!isTokenActive) return res.sendStatus(503);
+
+      jwt.verify(
+        refreshToken,
+        "refresh_token",
+        async (error: VerifyErrors | null, decoded: unknown) => {
+          if (error) {
+            console.log(error);
+            return res.sendStatus(403);
+          }
+
+          try {
+            const { id, email, roles } = decoded as RequestUser;
+            const user = { id, email, roles };
+
+            const authResponse = await userService.generateAuthResponse(user);
+
+            return res.status(200).json(authResponse);
+          } catch (error) {
+            console.log(error);
+            res.sendStatus(403);
+          }
+        }
+      );
+    }
+  );
 
   public logout = catchAsync(async (req: Request, res: Response) => {
     if (!req.user) return res.sendStatus(401);

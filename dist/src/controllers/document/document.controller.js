@@ -18,6 +18,7 @@ const document_service_1 = require("../../services/document.service");
 const document_model_1 = require("../../db/models/document.model");
 const document_user_model_1 = require("../../db/models/document-user.model");
 const express_validator_1 = require("express-validator");
+const crypto_1 = __importDefault(require("crypto"));
 class DocumentController {
     constructor() {
         this.getOne = (0, catch_async_1.default)((req, res) => __awaiter(this, void 0, void 0, function* () {
@@ -70,9 +71,12 @@ class DocumentController {
             return res.sendStatus(200);
         }));
         this.create = (0, catch_async_1.default)((req, res) => __awaiter(this, void 0, void 0, function* () {
-            var _a;
+            if (!req.user)
+                return res.sendStatus(401);
+            const token = crypto_1.default.randomBytes(16).toString("hex");
             const document = yield document_model_1.Document.create({
-                userId: (_a = req.user) === null || _a === void 0 ? void 0 : _a.id,
+                userId: req.user.id,
+                token: token,
             });
             return res.status(201).json(document);
         }));
@@ -86,6 +90,18 @@ class DocumentController {
                 },
             });
             return res.sendStatus(200);
+        }));
+        // Access document by token
+        this.getOneByToken = (0, catch_async_1.default)((req, res) => __awaiter(this, void 0, void 0, function* () {
+            if (!req.user)
+                return res.sendStatus(401);
+            const { token } = req.params;
+            const userId = req.user.id;
+            const document = yield document_service_1.documentService.findDocumentByToken(token, parseInt(userId));
+            if (!document) {
+                return res.status(404).json({ message: "ACcess Denied" });
+            }
+            return res.status(200).json(document);
         }));
     }
 }

@@ -8,7 +8,7 @@ import validate from "../validators/validate";
 
 const router = Router();
 
-router.get("/:id", authenticate, documentController.getOne);
+router.get("/:token/:id", authenticate, documentController.getOneByToken);
 
 router.get("/", authenticate, documentController.getAll);
 

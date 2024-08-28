@@ -25,6 +25,10 @@ __decorate([
     __metadata("design:type", String)
 ], Document.prototype, "content", void 0);
 __decorate([
+    (0, sequelize_typescript_1.Column)(sequelize_typescript_1.DataType.STRING),
+    __metadata("design:type", String)
+], Document.prototype, "token", void 0);
+__decorate([
     (0, sequelize_typescript_1.ForeignKey)(() => user_model_1.User),
     __metadata("design:type", Number)
 ], Document.prototype, "userId", void 0);
@@ -34,7 +38,7 @@ __decorate([
 ], Document.prototype, "user", void 0);
 __decorate([
     (0, sequelize_typescript_1.HasMany)(() => document_user_model_1.DocumentUser, {
-        onDelete: "CASCADE"
+        onDelete: "CASCADE",
     }),
     __metadata("design:type", Array)
 ], Document.prototype, "users", void 0);
@@ -45,13 +49,12 @@ __decorate([
 ], Document.prototype, "isPublic", void 0);
 exports.Document = Document = __decorate([
     (0, sequelize_typescript_1.DefaultScope)(() => ({
-        include: [{
+        include: [
+            {
                 model: document_user_model_1.DocumentUser,
-                include: [
-                    { model: user_model_1.User,
-                        attributes: ['email'] }
-                ]
-            }]
+                include: [{ model: user_model_1.User, attributes: ["email"] }],
+            },
+        ],
     })),
-    (0, sequelize_typescript_1.Table)({ tableName: 'document', underscored: true })
+    (0, sequelize_typescript_1.Table)({ tableName: "document", underscored: true })
 ], Document);

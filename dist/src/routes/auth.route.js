@@ -10,6 +10,6 @@ const auth_1 = require("../middlewares/auth");
 const validate_1 = __importDefault(require("../validators/validate"));
 const router = (0, express_1.Router)();
 router.post("/login", (0, validate_1.default)(auth_validator_1.authValidator.login), auth_controller_1.authController.login);
-router.post("/refresh-token", (0, validate_1.default)(auth_validator_1.authValidator.refreshToken), auth_controller_1.authController.refreshToken);
+router.post("/refresh-access-token", (0, validate_1.default)(auth_validator_1.authValidator.refreshAccessToken), auth_controller_1.authController.refreshAccessToken);
 router.delete("/logout", auth_1.authenticate, auth_controller_1.authController.logout);
 exports.default = router;

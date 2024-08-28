@@ -41,17 +41,15 @@ class AuthController {
             const authResponse = yield user_service_1.userService.generateAuthResponse(user);
             return res.status(200).json(authResponse);
         }));
-        this.refreshToken = (0, catch_async_1.default)((req, res) => __awaiter(this, void 0, void 0, function* () {
+        this.refreshAccessToken = (0, catch_async_1.default)((req, res) => __awaiter(this, void 0, void 0, function* () {
             const err = (0, express_validator_1.validationResult)(req);
             if (!err.isEmpty()) {
                 return res.status(400).json(err);
             }
             const refreshToken = req.body.token;
-            console.log(refreshToken);
             const isTokenActive = yield user_service_1.userService.getIsTokenActive(refreshToken);
-            console.log(isTokenActive);
             if (!isTokenActive)
-                return res.sendStatus(403);
+                return res.sendStatus(503);
             jsonwebtoken_1.default.verify(refreshToken, "refresh_token", (error, decoded) => __awaiter(this, void 0, void 0, function* () {
                 if (error) {
                     console.log(error);

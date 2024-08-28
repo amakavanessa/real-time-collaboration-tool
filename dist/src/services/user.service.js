@@ -76,12 +76,15 @@ class UserService {
                 expiresIn: "24h",
             });
             const refreshToken = jsonwebtoken_1.default.sign(requestUser, "refresh_token", {
-                expiresIn: "24h",
+                expiresIn: "7d",
             });
             yield refresh_token_model_1.RefreshToken.destroy({
                 where: { userId: requestUser.id },
             });
-            yield refresh_token_model_1.RefreshToken.create({ token: refreshToken, userId: requestUser.id });
+            yield refresh_token_model_1.RefreshToken.create({
+                token: refreshToken,
+                userId: requestUser.id,
+            });
             return { accessToken, refreshToken };
         });
         this.getIsTokenActive = (token) => __awaiter(this, void 0, void 0, function* () {

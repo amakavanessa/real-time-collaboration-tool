@@ -46,6 +46,20 @@ class DocumentService {
             }
             return document;
         });
+        this.findDocumentByToken = (token, userId) => __awaiter(this, void 0, void 0, function* () {
+            // Find document by token
+            const document = yield document_model_1.Document.findOne({
+                where: { token: token },
+            });
+            const isOwner = (document === null || document === void 0 ? void 0 : document.userId) == userId;
+            const hasAccess = yield document_user_model_1.DocumentUser.findOne({
+                where: { documentId: document === null || document === void 0 ? void 0 : document.id, userId: userId },
+            });
+            const isPublic = document === null || document === void 0 ? void 0 : document.isPublic;
+            if (!isOwner && !hasAccess && !isPublic)
+                return null;
+            return document;
+        });
     }
 }
 const documentService = new DocumentService();
